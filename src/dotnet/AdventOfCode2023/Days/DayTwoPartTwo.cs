@@ -1,7 +1,5 @@
 ﻿namespace AdventOfCode2023.Days;
 
-public record Cubes(int Red, int Green, int Blue);
-
 public static class DayTwoPartTwo
 {
     public static void Run()
@@ -11,26 +9,16 @@ public static class DayTwoPartTwo
         Console.WriteLine(result);
     }
 
-    internal static int GetResult(IEnumerable<string> data)
-    {
-        return data.Sum(GetLineScore);
-    }
+    internal static int GetResult(IEnumerable<string> data) => data.Sum(GetLineScore);
 
     private static int GetLineScore(string line)
     {
-        if (line.Split(":", StringSplitOptions.TrimEntries) is not [string gameinfo, string grabs])
-            throw new Exception();
+        var dict = new Dictionary<string, int> { { "red", 0 }, { "green", 0 }, { "blue", 0 } };
 
-        var dict = new Dictionary<string, int>()
-        {
-            { "red", 0 }, { "green", 0 }, { "blue", 0 }
-        };
-
+        var grabs = line.Split(":", StringSplitOptions.TrimEntries).Last();
         foreach (var grab in grabs.Split(";", StringSplitOptions.TrimEntries))
         {
-            var colorAndAmounts = grab.Split(",", StringSplitOptions.TrimEntries);
-
-            foreach (var colorAndAmount in colorAndAmounts)
+            foreach (var colorAndAmount in grab.Split(",", StringSplitOptions.TrimEntries))
             {
                 if (colorAndAmount.Split(" ") is not [string amountStr, string color]) throw new Exception();
                 var amount = int.Parse(amountStr);
@@ -38,6 +26,6 @@ public static class DayTwoPartTwo
             }
         }
 
-        return dict.Values.Aggregate(1, (x,y) => x * y);;
+        return dict.Values.Aggregate(1, (x, y) => x * y);
     }
 }
