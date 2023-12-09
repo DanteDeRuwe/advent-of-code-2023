@@ -1,6 +1,4 @@
-﻿using System.Buffers;
-
-namespace AdventOfCode2023.Days;
+﻿namespace AdventOfCode2023.Days;
 
 public static class DayOne
 {
